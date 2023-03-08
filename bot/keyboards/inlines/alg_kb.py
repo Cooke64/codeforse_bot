@@ -4,10 +4,9 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder, \
 from bot.services.callback_dates import AlgorithmCallbackData
 from database.task_crud import get_all_algorithms
 
-algorithms = get_all_algorithms()
-
 
 def get_algorithms_kb():
+    algorithms = get_all_algorithms()
     new_kb = InlineKeyboardBuilder()
     all_kb = [
         kb(

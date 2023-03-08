@@ -5,11 +5,13 @@ from aiogram import Bot, Dispatcher, types
 
 from bot.commands import register_user_commands
 from bot.commands.utils import bot_commands
-from bot.config import TOKEN, local_url
+from bot.config import TOKEN
 from bot.handlers import register_main_menu
 from database.models import Base
 from database.task_crud import engine
 from parser.main_parser import parse_codeforces
+
+
 
 
 def register_routers(dp):
@@ -30,7 +32,7 @@ async def main():
 
     register_routers(dp)
     Base.metadata.create_all(bind=engine)
-    parse_codeforces()
+    parse_codeforces(4)
     await bot.set_my_commands(commands)
     await dp.start_polling(bot)
 

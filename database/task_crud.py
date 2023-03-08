@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from bot.config import local_url
+from bot.config import DATABASE_URI
 from database.models import CodeforseTask, Algorithm, Dificulty
 
-engine = create_engine(local_url)
+engine = create_engine(DATABASE_URI)
 
 Session = sessionmaker(bind=engine)
 session = Session()

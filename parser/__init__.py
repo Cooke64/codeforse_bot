@@ -1,6 +1,3 @@
-def main():
-    pass
+from celery_app import app
 
-
-if __name__ == '__main__':
-    main()
+__all__ = ['app']

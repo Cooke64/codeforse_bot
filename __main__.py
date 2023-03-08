@@ -12,8 +12,6 @@ from database.task_crud import engine
 from parser.main_parser import parse_codeforces
 
 
-
-
 def register_routers(dp):
     register_user_commands(dp)
     register_main_menu(dp)
@@ -32,7 +30,7 @@ async def main():
 
     register_routers(dp)
     Base.metadata.create_all(bind=engine)
-    parse_codeforces(4)
+    parse_codeforces()
     await bot.set_my_commands(commands)
     await dp.start_polling(bot)
 

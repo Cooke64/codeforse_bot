@@ -1,4 +1,5 @@
 FROM python:3.10-slim
+
 LABEL maintainer="Cooke09"
 
 RUN mkdir /app

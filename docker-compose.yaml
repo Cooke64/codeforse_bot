@@ -4,6 +4,24 @@ services:
   redis:
     image: redis
     restart: always
+    volumes:
+      - redis_data:/data
+
+  worker:
+    restart: always
+    build:
+      context: .
+    volumes:
+      - ./tasks_value:/app/tasks
+    command: celery -A parser.celery_app worker -l INFO
+
+  celery-beats:
+    restart: always
+    build:
+      context: .
+    volumes:
+      - db_value:/var/lib/postgresql/data/
+    command: celery -A parser.celery_app beat -l INFO
 
   bot:
     env_file:
@@ -30,4 +48,7 @@ services:
 
 
 volumes:
+  db_value:
+  tasks_value:
   postgres-data:
+  redis_data:

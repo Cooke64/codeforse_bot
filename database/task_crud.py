@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, and_
 from sqlalchemy.orm import sessionmaker
 
 from bot.config import DATABASE_URI
@@ -41,6 +41,17 @@ def get_task_by_dif(dif):
         Dificulty.type_dif == dif).limit(10).all()
 
 
+def get_dif_values(param, dif):
+    return session.query(CodeforseTask).join(
+        Algorithm, CodeforseTask.algorithm).filter(
+        CodeforseTask.algorithm.any(
+            and_(
+                Algorithm.type == param,
+                Dificulty.type_dif == dif,
+            )
+        )).all()
+
+
 def create_algorithms(algorithms: list[str]) -> list[Algorithm]:
     """
     Получает список из строк в виде алгоритмов, полученных в ходе парсинга очередного ряда.
@@ -79,6 +90,7 @@ def add_task_in_bd(
             task_number=task_id,
             name=name,
             amount_done=amount_done,
+            was_in_context=None,
         )
         new_task.dificulty = create_dificulty(str(dificulty)).id
         new_task.algorithm = create_algorithms(algorithms)
@@ -93,3 +105,16 @@ def get_tasks_list(param: str) -> list[CodeforseTask]:
     return session.query(CodeforseTask).join(
         Algorithm, CodeforseTask.algorithm).filter(
         CodeforseTask.algorithm.any(Algorithm.type == param)).limit(10).all()
+
+
+def update_task_in_contest(alg_num, contest_type):
+    task = get_task_by_id(alg_num)
+    if not task.was_in_context:
+        task.was_in_context = contest_type
+        session.commit()
+
+
+def get_distinc_values(param, dif):
+    return session.query(CodeforseTask).join(Dificulty).filter(and_(
+        CodeforseTask.was_in_context == param,
+        Dificulty.type_dif == dif)).limit(10).all()

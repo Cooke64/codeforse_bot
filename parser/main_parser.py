@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 from database.task_crud import add_task_in_bd
-from parser import app
+
 
 URL = 'https://codeforces.com/problemset?order=BY_RATING_ASC&locale=ru'
 

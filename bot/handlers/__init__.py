@@ -15,11 +15,12 @@ def register_main_menu(router: Router):
     router.message.register(start_command, F.text == 'Главная')
     router.message.register(get_algo_tasks, F.text == 'По категориям')
     router.message.register(get_dif_tasks, F.text == 'По сложности')
-    router.callback_query.register(
-        get_tasks,
-        AlgorithmCallbackData.filter()
-    )
-    router.callback_query.register(
-        get_tasks_by_dif,
-        DificultyCallbackData.filter()
-    )
+    # router.callback_query.register(
+    #     get_tasks,
+    #     AlgorithmCallbackData.filter()
+    # )
+    # router.callback_query.register(
+    #     get_tasks_by_dif,
+    #     DificultyCallbackData.filter()
+    # )
+

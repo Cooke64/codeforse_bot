@@ -31,9 +31,10 @@ class CodeforseTask(BaseModel):
         backref='codeforses_tasks',
         overlaps='codeforses_tasks, algorithms'
     )
+    was_in_context = _(String(100), nullable=True)
 
     def __repr__(self) -> str:
-        return f"CodeforseTask(id={self.task_number!r}," \
+        return f"CodeforseTask(task_number={self.task_number!r}," \
                f"name={self.name!r}," \
                f" amount_done={self.amount_done!r}"
 

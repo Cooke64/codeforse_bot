@@ -16,3 +16,5 @@ async def get_algo_tasks(message: types.Message) -> None:
         'Задачи по нужным алгоритмам',
         reply_markup=get_algorithms_kb()
     )
+
+

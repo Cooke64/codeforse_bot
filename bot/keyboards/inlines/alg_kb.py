@@ -10,8 +10,8 @@ def get_algorithms_kb():
     new_kb = InlineKeyboardBuilder()
     all_kb = [
         kb(
-            text=item.type,
-            callback_data=AlgorithmCallbackData(type=str(item.type)).pack()
+            text=item.type[:20],
+            callback_data=AlgorithmCallbackData(type=item.type[:20]).pack()
         ) for item in algorithms
     ]
     new_kb.row(*all_kb, width=3)
